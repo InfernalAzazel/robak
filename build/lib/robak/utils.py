@@ -1,5 +1,8 @@
+import datetime
 import hashlib
 import json
+import os
+
 import aiohttp
 import requests
 import urllib3.contrib.pyopenssl
@@ -40,7 +43,9 @@ async def send_jdy_request(method, headers, request_url, data, retry_if_limited)
             return {}, e
 
     if status >= 400:
-        if result['code'] == 8303 and retry_if_limited:
+        if result['code'] == 8303 and retry_if_limited:  # 访问接口频率过高被限制
+            return await send_jdy_request(method, headers, request_url, data, retry_if_limited)
+        elif result['code'] == 4214 and retry_if_limited:  # 简道云响应超时
             return await send_jdy_request(method, headers, request_url, data, retry_if_limited)
         else:
             return {}, result
@@ -120,3 +125,19 @@ def str_to_md5_gbk_upper(string):
     """
     m = hashlib.md5(string.encode(encoding='gb2312'))
     return m.hexdigest().upper()
+
+
+class ProjectPath:
+    def __init__(self, root_path):
+        self.log_path = os.path.join(root_path, 'log')  # 定义存放log的文件夹Log
+        self.filename = os.path.join(self.log_path, '{}.log'.format(datetime.date.today()))  # 设置日志文件名字，按照时间格式譬如2020-10-20.log命名
+        print("[+]  初始化日志文件")
+        if not os.path.exists(self.log_path):  # 判断文件夹Log是否存在，不存在进行创建
+            os.mkdir(self.log_path)
+            if not os.path.exists(self.filename):  # 判断日志文件是否存在，不存在进行创建
+                print("[+]  发现日志文件不存在")
+                with open(self.filename, mode='w', encoding='utf-8') as ff:
+                    print("[+]  创建日志文件成功")
+                    print("[+]  检测日志文件正常...")
+        else:
+            print("[+]  检测日志文件正常...")

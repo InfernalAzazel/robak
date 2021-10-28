@@ -288,8 +288,10 @@ class Jdy:
         if not result:
             if non_existent_create:
                 result, err = await self.create_data(
-                    data=data, is_start_workflow=is_start_workflow,
-                    is_start_trigger=is_start_trigger)
+                    data=data,
+                    is_start_workflow=is_start_workflow,
+                    is_start_trigger=is_start_trigger
+                )
                 if err is not None:
                     return {}, err
                 return result, None

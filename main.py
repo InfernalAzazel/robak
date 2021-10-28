@@ -1,7 +1,7 @@
 import asyncio
-import time
+import os
 
-from robak import EWechat, Jdy, JdySerialize
+from robak import EWechat, Jdy, JdySerialize, JdyLog
 
 
 async def test1():
@@ -160,8 +160,27 @@ async def test3():
     print(JdySerialize.member_array_err_to_none(data2, 'dispatch'))
 
 
+async def test4():
+    print(os.path.dirname(__file__))
+    print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 获取项目的根目录
+    log = JdyLog(
+        app_id='5dde829086f77b0006f3833e',
+        entry_id='617649d05253940008e471d8',
+        api_key='Q20Prk3r78ih4w0ZYOr6iEFfj9g6cEk0',
+        exe_name='robak',
+        root_path=os.path.dirname(__file__)  # 获取项目的根目录
+    )
+    start_time = log.start_time()
+    await log.send(level=log.ERROR, url='http://www.baidu.com', secret='asdas324dsads34ad', err='s啊实打实的', data={
+        'a': 1,
+        'b': 'asdsa'
+    })
+    log.print('测试表单', 'ask建档立卡时间', )
+    log.print(name='http://www.baidu.com', info=f'处理耗时{log.elapsed(start_time)}s')
+
+
 if __name__ == '__main__':
     new_loop = asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(test3())
+    loop.run_until_complete(test4())

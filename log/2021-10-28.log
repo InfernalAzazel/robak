@@ -1,0 +1,9 @@
+2021-10-28 14:22:49.489 | ERROR    | robak.jdy_log:send:91 - | 异常  | robak |   http://www.baidu.com    |   asdas324dsads34ad   |    is_start_workflow:False   |   is_start_trigger:False     |   {'a': 1, 'b': 'asdsa'}  | ---> s啊实打实的
+2021-10-28 14:22:49.914 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   测试表单    | --->   ask建档立卡时间
+2021-10-28 14:22:49.914 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   http://www.baidu.com    | --->   处理耗时0.42605380000000004s
+2021-10-28 14:23:39.813 | ERROR    | robak.jdy_log:send:91 - | 异常  | robak |   http://www.baidu.com    |   asdas324dsads34ad   |    is_start_workflow:False   |   is_start_trigger:False     |   {'a': 1, 'b': 'asdsa'}  | ---> s啊实打实的
+2021-10-28 14:23:39.984 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   测试表单    | --->   ask建档立卡时间
+2021-10-28 14:23:39.984 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   http://www.baidu.com    | --->   处理耗时0.17094179999999998s
+2021-10-28 14:37:21.620 | ERROR    | robak.jdy_log:send:91 - | 异常  | robak |   http://www.baidu.com    |   asdas324dsads34ad   |    is_start_workflow:False   |   is_start_trigger:False     |   {'a': 1, 'b': 'asdsa'}  | ---> s啊实打实的
+2021-10-28 14:37:21.856 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   测试表单    | --->   ask建档立卡时间
+2021-10-28 14:37:21.856 | INFO     | robak.jdy_log:print:123 - | 信息  | robak |   http://www.baidu.com    | --->   处理耗时0.2360856s

@@ -1,7 +1,10 @@
+LICENSE
+README.md
 setup.py
 robak/__init__.py
 robak/ewechat.py
 robak/jdy.py
+robak/jdy_log.py
 robak/jdy_serialize.py
 robak/utils.py
 robak.egg-info/PKG-INFO
