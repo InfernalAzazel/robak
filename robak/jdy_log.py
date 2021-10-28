@@ -73,8 +73,8 @@ class JdyLog:
         :param secret: string 密钥
         :param err: string 异常信息
         :param data: json 数据
-        :param is_start_workflow: bool 是否激活流程 默认 false
-        :param is_start_trigger: bool  是否激活流程 默认 false
+        :param is_start_workflow: bool 是否发起流程（仅流程表单有效） 默认   false
+        :param is_start_trigger: bool  是否触发智能助手 默认 false
         :return: result,err
         """
         d = ''
