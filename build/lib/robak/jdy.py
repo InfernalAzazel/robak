@@ -44,10 +44,7 @@ class Jdy:
         :param timestamp:
         :return: result String
         """
-        content = ':'.join([nonce, payload, secret, timestamp]).encode('utf-8')
-        m = hashlib.sha1()
-        m.update(content)
-        return m.hexdigest()
+        return utils.get_signature(nonce=nonce, secret=secret, timestamp=timestamp, payload=payload)
 
     # 自动实例化 简道云API对象
     @staticmethod

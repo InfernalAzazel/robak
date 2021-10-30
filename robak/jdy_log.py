@@ -13,7 +13,6 @@ from . import utils
 
 
 class JdyLog:
-
     TRACE = '发现'  # TRACE 在线调试。该级别日志，默认情况下，既不打印到终端也不输出到文件。此时，对程序运行效率几乎不产生影响。
     DEBUG = '调试'  # DEBUG 终端查看、在线调试。该级别日志，默认情况下会打印到终端输出，但是不会归档到日志文件。因此，一般用于开发者在程序当前启动窗口上，查看日志流水信息。
     INFO = '信息'  # INFO 报告程序进度和状态信息。一般这种信息都是一过性的，不会大量反复输出。例如：连接商用库成功后，可以打印一条连库成功的信息，便于跟踪程序进展信息。
@@ -70,7 +69,7 @@ class JdyLog:
 
         :param level: string 日志级别
         :param url: sting 接口地址
-        :param secret: string 密钥
+        :param secret: string 秘钥
         :param err: string 异常信息
         :param data: json 数据
         :param is_start_workflow: bool 是否发起流程（仅流程表单有效） 默认   false
@@ -78,24 +77,25 @@ class JdyLog:
         :return: result,err
         """
         d = ''
+        msg = f'| {self.ERROR}  | {self.__exe_name} |   {url}   |   {secret}   |    is_start_workflow:{is_start_workflow}   |   is_start_trigger:{is_start_trigger}     |   {data}  | ---> {err}'
 
         if level == JdyLog.TRACE:
-            logger.trace(err)
+            logger.trace(msg)
         elif level == JdyLog.DEBUG:
-            logger.debug(err)
+            logger.debug(msg)
         elif level == JdyLog.INFO:
-            logger.info(err)
+            logger.info(msg)
         elif level == JdyLog.WARNING:
-            logger.warning(err)
+            logger.warning(msg)
         else:
-            logger.error(f'| {self.ERROR}  | {self.__exe_name} |   {url}    |   {secret}   |    is_start_workflow:{is_start_workflow}   |   is_start_trigger:{is_start_trigger}     |   {data}  | ---> {err}')
+            logger.error(msg)
 
         current_time = (datetime.datetime.now() - datetime.timedelta(hours=8)).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
         try:
-            d = json.dumps(data)
+            d = json.dumps(data, ensure_ascii=False)
         except:
-            logger.error(f'| {self.ERROR}  | {self.__exe_name} |   日志异常    | --->   {err}')
+            logger.error(f'| {self.ERROR}  | {self.__exe_name} |    {url}   | --->   {err}')
 
         _, err = await self.__jdy.create_data(
             data={
@@ -103,7 +103,6 @@ class JdyLog:
                 'level': {'value': level},
                 'url': {'value': url},
                 'secret': {'value': secret},
-                'is_handle': {'value': '否'},
                 'err': {'value': err},
                 'data': {'value': d},
             },
@@ -111,7 +110,34 @@ class JdyLog:
             is_start_trigger=is_start_trigger
         )
         if err is not None:
-            logger.error(f'| {self.ERROR}  | {self.__exe_name} |   日志异常    | --->   {err}')
+            logger.error(f'| {self.ERROR}  | {self.__exe_name} |    {url}   | --->   {err}')
+
+    @staticmethod
+    async def push(url, secret, data):
+        """
+        发送推送
+
+        :param url: string 网址
+        :param secret: string 密钥
+        :param data: string 数据
+        :return: result, err
+        """
+        return await utils.send_push_request(
+            request_url=url,
+            secret=secret,
+            data=data
+        )
+
+    async def ret_push_state(self, dataId, data, is_start_trigger=False):
+        """
+        返回重推状态
+
+        :param dataId: String 数据ID
+        :param data: JSON 数据内容，其他同新建单条数据接口，子表单需要注明子表单数据ID
+        :param is_start_trigger: Bool 是否触发智能助手 false
+        :return: result, err
+        """
+        return await self.__jdy.update_data(dataId=dataId, data=data, is_start_trigger=is_start_trigger)
 
     def print(self, name, info):
         """
@@ -121,6 +147,15 @@ class JdyLog:
         :param info: string 信息
         """
         logger.info(f'| {self.INFO}  | {self.__exe_name} |   {name}    | --->   {info}')
+
+    def error(self, name, info):
+        """
+        打印异常到终端
+
+        :param name: string 名称
+        :param info: string 信息
+        """
+        logger.error(f'| {self.ERROR}  | {self.__exe_name} |   {name}    | --->   {info}')
 
     @staticmethod
     def start_time():

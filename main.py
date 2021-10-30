@@ -1,13 +1,14 @@
 import asyncio
 import os
 
-from robak import EWechat, Jdy, JdySerialize, JdyLog
+from robak import EWechat, Jdy, JdySerialize, JdyLog, utils
 
 
 async def test1():
     async def errFn(e):
         if e is not None:
             print(e)
+            return
 
     appId = '5dde829086f77b0006f3833e'
     entryId = '60dd8e24224ed700089fbe49'
@@ -171,11 +172,17 @@ async def test4():
         root_path=os.path.dirname(__file__)  # 获取项目的根目录
     )
     start_time = log.start_time()
-    await log.send(level=log.ERROR, url='http://www.baidu.com', secret='asdas324dsads34ad', err='s啊实打实的', data={
-        'a': 1,
-        'b': 'asdsa'
-    })
-    log.print('测试表单', 'ask建档立卡时间', )
+    # await log.send(level=log.ERROR, url='http://www.baidu.com', secret='asdas324dsads34ad', err='s啊实打实的', data={
+    #     'a': 1,
+    #     'b': 'asdsa'
+    # })
+    # log.print('测试表单', 'ask建档立卡时间', )
+
+    await log.push(
+        url='http://61.143.126.226:11451/api/v1/jd/web-hook/test?nonce=2af421&timestamp=1635575734',
+        secret='jIYbq5RGrjeA1AsrNGdWfpH0',
+        data='{"op": "data_update", "data": {"_id": "617ca8d0bdb142000828cb7f", "appId": "5dde829086f77b0006f3833e", "code": "啊实打实大所", "createTime": "2021-10-30T02:07:12.602Z", "creator": {"_id": "60aee58d252135000741253f", "name": "张畅汇", "status": 1, "username": "18029971256"}, "deleteTime": null, "deleter": null, "entryId": "617ca868d23b3b000779281a", "flowState": 1, "formName": "单元测试", "name": "260阿萨德", "updateTime": "2021-10-30T06:35:33.992Z", "updater": {"_id": "60aee58d252135000741253f", "name": "张畅汇", "status": 1, "username": "18029971256"}}}'
+    )
     log.print(name='http://www.baidu.com', info=f'处理耗时{log.elapsed(start_time)}s')
 
 

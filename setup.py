@@ -2,7 +2,7 @@
 
 setup(
     name='robak',
-    version='0.0.5',
+    version='0.0.8',
     description='This is a robak of the setup',
     author='Kylin',
     author_email='260987762@qq.com',
