@@ -10,9 +10,9 @@ async def test1():
             print(e)
             return
 
-    appId = '5dde829086f77b0006f3833e'
-    entryId = '60dd8e24224ed700089fbe49'
-    api_key = 'Q20Prk3r78ih4w0ZYOr6iEFfj9g6cEk0'
+    appId = ''
+    entryId = ''
+    api_key = ''
     api = Jdy(appId, entryId, api_key)
 
     # 获取表单字段
@@ -101,12 +101,12 @@ async def test2():
         if e is not None:
             print(e)
 
-    ew = EWechat('ww9ec26301b4320ef9', 'IAFxK_Qalqg6DHVEXIpXN9_b42wVWBSjcFn9HV-Y1b0')
+    ew = EWechat('', '')
     # res, err = await ew.send_red_pack(
     #     scene_id='PRODUCT_4',
-    #     agent_id='3010046',
-    #     secret='Wd_y4mASauhbRMnzNp8HPFnloyKeI-Oo50BQ47Ktpb4',
-    #     key='N5N8LzXt4Sp7PkSeQmPBNzHz4aSaf4S1',
+    #     agent_id='',
+    #     secret='',
+    #     key='',
     #     mch_bill_no=str(int(round(time.time() * 1000))),
     #     mch_id='1267951401',
     #     userid='weisheng',
@@ -119,9 +119,9 @@ async def test2():
     # )
     # await errFn(err)
     res, err = await ew.query_red_pack(
-        mch_bill_no='HBZF125465ASDSAD11',
-        mch_id='1267951401',
-        key='N5N8LzXt4Sp7PkSeQmPBNzHz4aSaf4S1',
+        mch_bill_no='',
+        mch_id='',
+        key='',
         cert=('apiclient_cert.pem', 'apiclient_key.pem'),
         debug=True
     )
@@ -165,9 +165,9 @@ async def test4():
     print(os.path.dirname(__file__))
     print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 获取项目的根目录
     log = JdyLog(
-        app_id='5dde829086f77b0006f3833e',
-        entry_id='617649d05253940008e471d8',
-        api_key='Q20Prk3r78ih4w0ZYOr6iEFfj9g6cEk0',
+        app_id='',
+        entry_id='',
+        api_key='',
         exe_name='robak',
         root_path=os.path.dirname(__file__)  # 获取项目的根目录
     )
@@ -179,7 +179,7 @@ async def test4():
     # log.print('测试表单', 'ask建档立卡时间', )
 
     await log.push(
-        url='http://61.143.126.226:11451/api/v1/jd/web-hook/test?nonce=2af421&timestamp=1635575734',
+        url='http://127.0.0.1:9999/api/v1/jd/web-hook/test?nonce=2af421&timestamp=1635575734',
         secret='jIYbq5RGrjeA1AsrNGdWfpH0',
         data='{"op": "data_update", "data": {"_id": "617ca8d0bdb142000828cb7f", "appId": "5dde829086f77b0006f3833e", "code": "啊实打实大所", "createTime": "2021-10-30T02:07:12.602Z", "creator": {"_id": "60aee58d252135000741253f", "name": "张畅汇", "status": 1, "username": "18029971256"}, "deleteTime": null, "deleter": null, "entryId": "617ca868d23b3b000779281a", "flowState": 1, "formName": "单元测试", "name": "260阿萨德", "updateTime": "2021-10-30T06:35:33.992Z", "updater": {"_id": "60aee58d252135000741253f", "name": "张畅汇", "status": 1, "username": "18029971256"}}}'
     )
